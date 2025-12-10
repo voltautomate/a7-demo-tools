@@ -46,11 +46,47 @@ const industryKeywords = {
   'finance': ['finance', 'investment', 'bank', 'loan', 'credit', 'wealth', 'portfolio', 'stock', 'trading', 'financial', 'advisor', 'retirement', 'tax'],
 };
 
+// Simulated transcript segments for different industries
+const industryTranscripts = {
+  'real-estate': [
+    { start: 5, end: 20, text: "The market is shifting and here's what every buyer needs to know right now", hookTitle: "Market Update Hook", subtitle: "the market is shifting and here's what every buyer needs to know" },
+    { start: 45, end: 75, text: "First time buyers make these three mistakes and it costs them thousands", hookTitle: "First-Time Buyer Tips", subtitle: "first time buyers make these three mistakes" },
+    { start: 90, end: 112, text: "Just listed this stunning four bedroom home in the heart of downtown", hookTitle: "Property Showcase", subtitle: "just listed this stunning four bedroom home" },
+  ],
+  'healthcare': [
+    { start: 8, end: 26, text: "Five health tips that will change your life starting today", hookTitle: "Health Tips Hook", subtitle: "five health tips that will change your life" },
+    { start: 50, end: 75, text: "The biggest wellness myth that doctors wish you knew wasn't true", hookTitle: "Wellness Myth Buster", subtitle: "the biggest wellness myth doctors wish you knew" },
+    { start: 100, end: 120, text: "Prevention is always better than treatment here's why", hookTitle: "Prevention Tips", subtitle: "prevention is always better than treatment" },
+  ],
+  'construction': [
+    { start: 3, end: 23, text: "This is how we onboard new trades clients in under 48 hours", hookTitle: "Client Onboarding Process", subtitle: "this is how we onboard new trades clients in under 48 hours" },
+    { start: 40, end: 55, text: "How can you keep it an honest crew a motivated crew a transparent crew", hookTitle: "Building Your Team", subtitle: "how can you keep it an honest crew a motivated crew a transparent crew" },
+    { start: 85, end: 115, text: "Watch this ninety day build come together in just thirty seconds", hookTitle: "Project Timelapse", subtitle: "watch this ninety day build come together" },
+  ],
+  'insurance': [
+    { start: 5, end: 23, text: "Insurance doesn't have to be confusing let me break it down for you", hookTitle: "Coverage Made Simple", subtitle: "insurance doesn't have to be confusing let me break it down" },
+    { start: 48, end: 78, text: "The three coverage gaps that could cost you everything you own", hookTitle: "Coverage Gap Warning", subtitle: "the three coverage gaps that could cost you everything" },
+    { start: 95, end: 113, text: "How to file a claim and actually get approved the first time", hookTitle: "Claims Process Guide", subtitle: "how to file a claim and actually get approved" },
+  ],
+  'legal': [
+    { start: 6, end: 26, text: "Know your rights before you sign anything these are the red flags", hookTitle: "Know Your Rights", subtitle: "know your rights before you sign anything" },
+    { start: 52, end: 77, text: "Five contract clauses that should never be ignored ever", hookTitle: "Contract Red Flags", subtitle: "five contract clauses that should never be ignored" },
+    { start: 92, end: 114, text: "When should you actually get a lawyer involved most people wait too long", hookTitle: "When to Get Legal Help", subtitle: "when should you actually get a lawyer involved" },
+  ],
+  'finance': [
+    { start: 4, end: 19, text: "The money minute here's today's tip that could save you thousands", hookTitle: "Money Minute", subtitle: "here's today's tip that could save you thousands" },
+    { start: 55, end: 83, text: "Compound interest is the eighth wonder of the world here's why", hookTitle: "Power of Compound Interest", subtitle: "compound interest is the eighth wonder of the world" },
+    { start: 98, end: 118, text: "Three investment myths that are keeping you broke let's bust them", hookTitle: "Investment Myth Buster", subtitle: "three investment myths that are keeping you broke" },
+  ],
+};
+
 // Industry-specific mock content with enhanced visuals
 const industryContent = {
   'real-estate': {
     color: 'from-blue-500 to-blue-600',
     accentColor: 'blue',
+    gradientTop: 'from-blue-900/90 via-blue-900/50 to-transparent',
+    gradientBottom: 'from-transparent via-blue-900/50 to-blue-900/90',
     clips: [
       { id: 1, title: 'Market Update Hook', duration: '0:15', type: 'Reel/Short', thumbnail: '🏠', subtitle: '"2024 Market Trends"', textOverlay: 'THE MARKET IS SHIFTING' },
       { id: 2, title: 'Tip: First-Time Buyers', duration: '0:30', type: 'Reel/Short', thumbnail: '🔑', subtitle: '"3 Must-Know Tips"', textOverlay: 'FIRST TIME BUYER?' },
@@ -85,6 +121,8 @@ const industryContent = {
   'healthcare': {
     color: 'from-emerald-500 to-emerald-600',
     accentColor: 'emerald',
+    gradientTop: 'from-emerald-900/90 via-emerald-900/50 to-transparent',
+    gradientBottom: 'from-transparent via-emerald-900/50 to-emerald-900/90',
     clips: [
       { id: 1, title: 'Patient Care Tips', duration: '0:18', type: 'Reel/Short', thumbnail: '💚', subtitle: '"Wellness Guide"', textOverlay: '5 HEALTH TIPS' },
       { id: 2, title: 'Wellness Wednesday Hook', duration: '0:25', type: 'Reel/Short', thumbnail: '🩺', subtitle: '"Weekly Wellness"', textOverlay: 'WELLNESS WEDNESDAY' },
@@ -119,6 +157,8 @@ const industryContent = {
   'construction': {
     color: 'from-orange-500 to-orange-600',
     accentColor: 'orange',
+    gradientTop: 'from-amber-600/95 via-orange-500/70 to-transparent',
+    gradientBottom: 'from-transparent via-orange-500/70 to-amber-600/95',
     clips: [
       { id: 1, title: 'Project Timelapse Hook', duration: '0:20', type: 'Reel/Short', thumbnail: '🏗️', subtitle: '"Build Progress"', textOverlay: '90 DAYS IN 30 SEC' },
       { id: 2, title: 'Safety Tip of the Week', duration: '0:15', type: 'Reel/Short', thumbnail: '⚠️', subtitle: '"Safety First"', textOverlay: 'STAY SAFE ON SITE' },
@@ -153,6 +193,8 @@ const industryContent = {
   'insurance': {
     color: 'from-purple-500 to-purple-600',
     accentColor: 'purple',
+    gradientTop: 'from-purple-900/90 via-purple-900/50 to-transparent',
+    gradientBottom: 'from-transparent via-purple-900/50 to-purple-900/90',
     clips: [
       { id: 1, title: 'Coverage Explained Simply', duration: '0:25', type: 'Reel/Short', thumbnail: '🛡️', subtitle: '"Coverage 101"', textOverlay: 'INSURANCE MADE EASY' },
       { id: 2, title: 'Claim Process Walkthrough', duration: '0:30', type: 'Reel/Short', thumbnail: '📝', subtitle: '"Step by Step"', textOverlay: 'HOW TO FILE A CLAIM' },
@@ -187,6 +229,8 @@ const industryContent = {
   'legal': {
     color: 'from-red-500 to-red-600',
     accentColor: 'red',
+    gradientTop: 'from-red-900/90 via-red-900/50 to-transparent',
+    gradientBottom: 'from-transparent via-red-900/50 to-red-900/90',
     clips: [
       { id: 1, title: 'Know Your Rights', duration: '0:20', type: 'Reel/Short', thumbnail: '⚖️', subtitle: '"Legal Rights"', textOverlay: 'KNOW YOUR RIGHTS' },
       { id: 2, title: 'Legal Tip Tuesday', duration: '0:25', type: 'Reel/Short', thumbnail: '📜', subtitle: '"Weekly Tips"', textOverlay: 'LEGAL TIP TUESDAY' },
@@ -221,6 +265,8 @@ const industryContent = {
   'finance': {
     color: 'from-cyan-500 to-cyan-600',
     accentColor: 'cyan',
+    gradientTop: 'from-cyan-900/90 via-cyan-900/50 to-transparent',
+    gradientBottom: 'from-transparent via-cyan-900/50 to-cyan-900/90',
     clips: [
       { id: 1, title: 'Money Minute Hook', duration: '0:15', type: 'Reel/Short', thumbnail: '💰', subtitle: '"Quick Tips"', textOverlay: 'MONEY MINUTE' },
       { id: 2, title: 'Investment Strategy Breakdown', duration: '0:28', type: 'Reel/Short', thumbnail: '📈', subtitle: '"Smart Investing"', textOverlay: 'GROW YOUR WEALTH' },
@@ -282,17 +328,19 @@ const extractYouTubeId = (url) => {
   return null;
 };
 
-// Generate clip timestamps based on video (simulated AI analysis)
-const generateClipTimestamps = (videoId) => {
-  // In a real implementation, AI would analyze the video and find key moments
-  // For demo, we generate plausible timestamps
-  const clipDurations = [15, 30, 22]; // seconds
-  const startTimes = [5, 45, 90]; // starting points in video
+// Generate clip timestamps based on video and industry (simulated AI transcript analysis)
+const generateClipTimestamps = (videoId, industry) => {
+  // In a real implementation, AI would analyze the video transcript and find key moments
+  // For demo, we use simulated industry-specific transcripts
+  const transcripts = industryTranscripts[industry] || industryTranscripts['construction'];
 
-  return clipDurations.map((duration, i) => ({
-    start: startTimes[i],
-    end: startTimes[i] + duration,
-    duration: `0:${duration.toString().padStart(2, '0')}`,
+  return transcripts.map((segment) => ({
+    start: segment.start,
+    end: segment.end,
+    duration: `0:${(segment.end - segment.start).toString().padStart(2, '0')}`,
+    subtitle: segment.subtitle,
+    hookTitle: segment.hookTitle,
+    fullText: segment.text,
   }));
 };
 
@@ -384,7 +432,7 @@ function ProcessingAnimation({ currentStep }) {
   );
 }
 
-function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
+function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTop, gradientBottom }) {
   const [showPreview, setShowPreview] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [clipEnded, setClipEnded] = useState(false);
@@ -456,24 +504,16 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
               </div>
             </div>
 
+            {/* TOP BRANDED GRADIENT OVERLAY */}
+            <div className={`absolute top-0 left-0 right-0 h-16 bg-gradient-to-b ${gradientTop || 'from-black/70 via-black/30 to-transparent'} z-10`} />
+
             {/* Large emoji icon */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-6xl opacity-50 group-hover:opacity-70 transition-opacity drop-shadow-lg">
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-6xl opacity-50 group-hover:opacity-70 transition-opacity drop-shadow-lg z-[5]">
               {clip.thumbnail}
             </div>
 
-            {/* Text overlay - main hook text */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-3 text-center">
-              <motion.p
-                className="text-white font-black text-lg leading-tight drop-shadow-lg"
-                style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
-              >
-                {clip.textOverlay}
-              </motion.p>
-              <p className="text-white/90 text-xs mt-1 font-medium drop-shadow">{clip.subtitle}</p>
-            </div>
-
             {/* Play button overlay */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30">
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 z-20">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center cursor-pointer shadow-xl"
@@ -482,28 +522,41 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
               </motion.div>
             </div>
 
-            {/* Duration badge */}
-            <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 text-xs text-white font-medium backdrop-blur-sm">
-              {timestamp ? timestamp.duration : clip.duration}
-            </div>
-
             {/* Type badge */}
-            <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-white/90 text-xs text-gray-900 font-bold">
+            <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-white/90 text-xs text-gray-900 font-bold z-20">
               {clip.type}
             </div>
 
             {/* "From your video" badge if YouTube */}
             {hasYouTubeVideo && (
-              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-a7-success/90 text-xs text-white font-medium">
+              <div className="absolute top-2 right-2 px-2 py-1 rounded-full bg-a7-success/90 text-xs text-white font-medium z-20">
                 Your Video
               </div>
             )}
 
-            {/* Bottom gradient for readability */}
-            <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent" />
+            {/* BOTTOM BRANDED GRADIENT OVERLAY with BAKED-IN SUBTITLE */}
+            <div className={`absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} z-10`}>
+              {/* Subtitle text - baked into the clip like in real reels */}
+              <div className="absolute bottom-8 left-2 right-2 text-center">
+                <p
+                  className="text-white font-black text-sm leading-tight uppercase tracking-wide"
+                  style={{
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.5)',
+                    WebkitTextStroke: '0.5px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  {timestamp?.subtitle || clip.textOverlay}
+                </p>
+              </div>
+            </div>
+
+            {/* Duration badge */}
+            <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 text-xs text-white font-medium backdrop-blur-sm z-20">
+              {timestamp ? timestamp.duration : clip.duration}
+            </div>
           </div>
           <div className="p-3 bg-a7-dark-800">
-            <p className="text-sm font-semibold text-white truncate">{clip.title}</p>
+            <p className="text-sm font-semibold text-white truncate">{timestamp?.hookTitle || clip.title}</p>
             <p className="text-xs text-gray-400 mt-0.5">
               {hasYouTubeVideo ? `Clip from ${timestamp.start}s - ${timestamp.end}s` : 'Click to preview'}
             </p>
@@ -544,12 +597,33 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
 
                     <div className="aspect-[9/16] rounded-xl overflow-hidden bg-black relative">
                       {!clipEnded ? (
-                        <iframe
-                          src={`https://www.youtube.com/embed/${youtubeId}?start=${timestamp.start}&autoplay=1&modestbranding=1&rel=0&controls=0`}
-                          title={clip.title}
-                          className="w-full h-full"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        />
+                        <>
+                          <iframe
+                            src={`https://www.youtube.com/embed/${youtubeId}?start=${timestamp.start}&autoplay=1&modestbranding=1&rel=0&controls=0`}
+                            title={clip.title}
+                            className="w-full h-full"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          />
+                          {/* TOP BRANDED GRADIENT OVERLAY */}
+                          <div className={`absolute top-0 left-0 right-0 h-20 bg-gradient-to-b ${gradientTop || 'from-black/80 via-black/40 to-transparent'} pointer-events-none z-10`} />
+
+                          {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE */}
+                          <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} pointer-events-none z-10`}>
+                            <div className="absolute bottom-6 left-3 right-3 text-center">
+                              <motion.p
+                                className="text-white font-black text-base leading-tight uppercase tracking-wide"
+                                style={{
+                                  textShadow: '2px 2px 6px rgba(0,0,0,0.95), -1px -1px 3px rgba(0,0,0,0.6)',
+                                  WebkitTextStroke: '0.5px rgba(0,0,0,0.4)'
+                                }}
+                                animate={{ opacity: [0.9, 1, 0.9] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                              >
+                                {timestamp?.subtitle || clip.textOverlay}
+                              </motion.p>
+                            </div>
+                          </div>
+                        </>
                       ) : (
                         /* Clip ended overlay */
                         <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-a7-dark-800 to-a7-dark-900">
@@ -581,7 +655,7 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
 
                       {/* Time remaining indicator */}
                       {!clipEnded && (
-                        <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-sm flex items-center gap-2">
+                        <div className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-sm flex items-center gap-2 z-20">
                           <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                           <span className="text-white text-sm font-mono font-bold">
                             0:{timeRemaining.toString().padStart(2, '0')}
@@ -597,7 +671,7 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
                       <CheckCircle size={14} className="text-a7-success" />
                       <span className="text-xs text-a7-success font-medium">AI-extracted clip from your video</span>
                     </div>
-                    <p className="text-white font-semibold">{clip.title}</p>
+                    <p className="text-white font-semibold">{timestamp?.hookTitle || clip.title}</p>
                     <p className="text-gray-400 text-sm">{timestamp.duration} • Clip {index + 1} of 3</p>
                     <p className="text-gray-500 text-xs mt-1">Original segment: {timestamp.start}s - {timestamp.end}s</p>
                     <div className="flex gap-2 justify-center mt-3">
@@ -619,25 +693,19 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
                 <>
                   <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl">
                     <div className={`aspect-[9/16] bg-gradient-to-br ${industryColor || 'from-a7-dark-700 to-a7-dark-600'} rounded-[2rem] relative overflow-hidden`}>
+                      {/* TOP BRANDED GRADIENT OVERLAY */}
+                      <div className={`absolute top-0 left-0 right-0 h-20 bg-gradient-to-b ${gradientTop || 'from-black/80 via-black/40 to-transparent'} z-10`} />
+
                       <motion.div
-                        className="absolute top-1/4 left-1/2 -translate-x-1/2 text-8xl"
+                        className="absolute top-1/4 left-1/2 -translate-x-1/2 text-8xl z-[5]"
                         animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
                         {clip.thumbnail}
                       </motion.div>
-                      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-6 text-center">
-                        <motion.p
-                          className="text-white font-black text-2xl leading-tight"
-                          style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.8)' }}
-                          animate={{ opacity: [0.8, 1, 0.8] }}
-                          transition={{ duration: 1.5, repeat: Infinity }}
-                        >
-                          {clip.textOverlay}
-                        </motion.p>
-                        <p className="text-white/80 text-sm mt-2 font-medium">{clip.subtitle}</p>
-                      </div>
-                      <div className="absolute right-3 bottom-20 flex flex-col items-center gap-4">
+
+                      {/* Social icons on right side */}
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4 z-20">
                         <motion.div
                           className="w-10 h-10 rounded-full bg-white/20 backdrop-blur flex items-center justify-center"
                           animate={{ scale: [1, 1.1, 1] }}
@@ -652,11 +720,28 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp }) {
                           <span className="text-lg">↗️</span>
                         </div>
                       </div>
+
+                      {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE */}
+                      <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} z-10`}>
+                        <div className="absolute bottom-6 left-3 right-3 text-center">
+                          <motion.p
+                            className="text-white font-black text-lg leading-tight uppercase tracking-wide"
+                            style={{
+                              textShadow: '2px 2px 6px rgba(0,0,0,0.95), -1px -1px 3px rgba(0,0,0,0.6)',
+                              WebkitTextStroke: '0.5px rgba(0,0,0,0.4)'
+                            }}
+                            animate={{ opacity: [0.8, 1, 0.8] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                          >
+                            {timestamp?.subtitle || clip.textOverlay}
+                          </motion.p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="mt-4 text-center">
-                    <p className="text-white font-semibold">{clip.title}</p>
-                    <p className="text-gray-400 text-sm">{clip.duration} • {clip.type}</p>
+                    <p className="text-white font-semibold">{timestamp?.hookTitle || clip.title}</p>
+                    <p className="text-gray-400 text-sm">{timestamp?.duration || clip.duration} • {clip.type}</p>
                     <p className="text-gray-500 text-xs mt-2">Paste a YouTube URL to see real clips from your video</p>
                   </div>
                 </>
@@ -915,14 +1000,14 @@ export default function ContentEngine({ onBack }) {
       const videoId = extractYouTubeId(inputValue);
       if (videoId) {
         setYoutubeId(videoId);
-        setClipTimestamps(generateClipTimestamps(videoId));
+        setClipTimestamps(generateClipTimestamps(videoId, finalIndustry));
       } else {
         setYoutubeId(null);
-        setClipTimestamps([]);
+        setClipTimestamps(generateClipTimestamps(null, finalIndustry));
       }
     } else {
       setYoutubeId(null);
-      setClipTimestamps([]);
+      setClipTimestamps(generateClipTimestamps(null, finalIndustry));
     }
 
     setPhase('processing');
@@ -1202,6 +1287,8 @@ export default function ContentEngine({ onBack }) {
                       industryColor={currentContent.color}
                       youtubeId={youtubeId}
                       timestamp={clipTimestamps[i]}
+                      gradientTop={currentContent.gradientTop}
+                      gradientBottom={currentContent.gradientBottom}
                     />
                   ))}
                 </div>

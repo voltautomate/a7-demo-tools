@@ -36,10 +36,105 @@ const industries = [
   { id: 'finance', name: 'Finance', icon: Landmark, color: 'from-cyan-500 to-cyan-600' },
 ];
 
+// Common responses that work across all industries
+const commonResponses = {
+  greeting: {
+    patterns: ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'good evening', 'howdy', 'greetings'],
+    response: (company) => `Hello! Welcome to ${company}. How can I assist you today?`,
+    delay: 1000,
+  },
+  thanks: {
+    patterns: ['thank', 'thanks', 'appreciate', 'thx', 'ty'],
+    response: () => "You're welcome! Is there anything else I can help you with today?",
+    delay: 1000,
+  },
+  goodbye: {
+    patterns: ['bye', 'goodbye', 'see you', 'later', 'gotta go', 'have to go'],
+    response: () => "Thank you for chatting with us! Don't hesitate to reach out if you have any more questions. Have a great day! 👋",
+    delay: 1000,
+  },
+  hours: {
+    patterns: ['hours', 'open', 'close', 'when are you', 'business hours', 'operating hours', 'what time'],
+    response: (company) => `${company} is available:\n\n🕐 **Monday - Friday:** 8:00 AM - 6:00 PM\n🕐 **Saturday:** 9:00 AM - 2:00 PM\n🕐 **Sunday:** Closed\n\nHowever, I'm available 24/7 to answer questions and schedule appointments!`,
+    delay: 1200,
+  },
+  location: {
+    patterns: ['where', 'location', 'address', 'find you', 'directions', 'located', 'office'],
+    response: (company) => `${company} is conveniently located in the downtown business district. I can provide specific directions once you're ready to visit.\n\nWould you like to schedule an appointment, or do you have questions I can help answer first?`,
+    delay: 1200,
+  },
+  contact: {
+    patterns: ['phone', 'call you', 'email', 'contact', 'reach', 'number'],
+    response: (company) => `You can reach ${company} through several channels:\n\n📧 **Email:** info@company.com\n📞 **Phone:** (555) 123-4567\n💬 **Chat:** You're using it now!\n\nI can also schedule a callback if you prefer. What works best for you?`,
+    delay: 1200,
+  },
+  whoAreYou: {
+    patterns: ['who are you', 'what are you', 'are you a bot', 'are you real', 'are you human', 'are you ai', 'robot'],
+    response: (company) => `I'm an AI assistant for ${company}! I'm designed to help answer your questions, provide information about our services, and schedule appointments 24/7.\n\nWhile I'm not human, I'm here to make sure you get the help you need quickly. If you'd prefer to speak with a team member, I can arrange that. How can I help you today?`,
+    delay: 1500,
+  },
+  capabilities: {
+    patterns: ['what can you do', 'how can you help', 'capabilities', 'what do you do'],
+    response: (company) => `I can help you with several things:\n\n✅ Answer questions about our services\n✅ Provide pricing information\n✅ Schedule appointments and consultations\n✅ Connect you with the right team member\n✅ Share our business hours and location\n\nWhat would you like to know more about?`,
+    delay: 1300,
+  },
+  confused: {
+    patterns: ['confused', "don't understand", 'what do you mean', 'huh', 'unclear', '?'],
+    response: () => "I apologize if I wasn't clear! Let me help you better. Are you looking to:\n\n1️⃣ Learn about our services\n2️⃣ Get pricing information\n3️⃣ Schedule an appointment\n\nJust let me know which one, or feel free to ask your question another way!",
+    delay: 1200,
+  },
+  negative: {
+    patterns: ['no', 'nope', 'not interested', 'no thanks', 'nah'],
+    response: () => "No problem at all! Is there something else I can help you with, or would you like more information about a different topic?",
+    delay: 1000,
+  },
+  positive: {
+    patterns: ['yes', 'yeah', 'sure', 'ok', 'okay', 'sounds good', 'perfect', 'great'],
+    response: () => "Great! What would you like to know more about, or shall I help you schedule an appointment?",
+    delay: 1000,
+  },
+  complaint: {
+    patterns: ['complaint', 'unhappy', 'problem', 'issue', 'frustrated', 'angry', 'terrible', 'worst'],
+    response: (company) => `I'm truly sorry to hear you're experiencing an issue. Your feedback is important to us at ${company}.\n\nI'd like to connect you with a team member who can help resolve this. Would you prefer:\n\n📞 A callback within the hour\n📧 An email response\n💬 Continue chatting here\n\nHow can I best help you?`,
+    delay: 1500,
+  },
+  emergency: {
+    patterns: ['emergency', 'urgent', 'asap', 'immediately', 'right now', 'hurry'],
+    response: (company) => `I understand this is urgent. For immediate assistance, please call us directly at **(555) 123-4567**.\n\nAlternatively, I can flag this as high priority and have someone from ${company} reach out to you within 15 minutes. Would you like me to do that?`,
+    delay: 1200,
+  },
+  random: {
+    patterns: ['weather', 'joke', 'funny', 'sports', 'news', 'politics'],
+    response: (company) => `Ha! I appreciate the conversation, but I'm specifically designed to help with ${company}'s services. 😊\n\nIs there anything related to our business I can help you with? I'm happy to answer questions about our services, pricing, or schedule an appointment.`,
+    delay: 1200,
+  },
+  fallback: {
+    response: (company) => `Thanks for your message! While I want to make sure I give you accurate information, I'd be happy to help in a few ways:\n\n• Tell you about our services\n• Provide pricing estimates\n• Schedule a consultation\n• Connect you with a team member\n\nWhat interests you most?`,
+    delay: 1300,
+  },
+};
+
 // Industry-specific conversation flows
 const industryFlows = {
   'real-estate': {
     greeting: (company) => `Hi there! I'm the AI Assistant for ${company}. I can help you find properties, schedule viewings, or answer questions about the local market. What can I help you with today?`,
+    specificResponses: {
+      mortgage: {
+        patterns: ['mortgage', 'financing', 'loan', 'pre-approved', 'pre-approval'],
+        response: "Great question about financing! We work with several trusted mortgage partners who offer competitive rates. Currently, rates are ranging from 6.25-7.25% depending on your profile.\n\nWould you like me to:\n• Connect you with a mortgage specialist\n• Get you pre-approved before viewing homes\n• Discuss your budget to find the right price range",
+        delay: 1500,
+      },
+      neighborhood: {
+        patterns: ['neighborhood', 'area', 'schools', 'safety', 'crime', 'community'],
+        response: "I can provide detailed neighborhood information! Our listings include data on:\n\n🏫 School ratings and distances\n🛡️ Safety statistics\n🌳 Parks and recreation\n🛒 Shopping and dining\n🚗 Commute times\n\nWhich neighborhood are you interested in learning more about?",
+        delay: 1500,
+      },
+      selling: {
+        patterns: ['sell', 'selling', 'list my home', 'market my', 'home value'],
+        response: "Looking to sell? Great timing! The market is currently favoring sellers in most areas.\n\nI can help you with:\n📊 Free home valuation\n📸 Professional photography services\n📋 Marketing strategy\n\nWould you like to schedule a free home evaluation?",
+        delay: 1500,
+      },
+    },
     flows: {
       services: {
         response: "I'd be happy to help you find the perfect property! We currently have 47 active listings. To narrow things down, could you tell me:\n\n• What's your preferred location or neighborhood?\n• What's your budget range?\n• How many bedrooms do you need?",
@@ -66,6 +161,23 @@ const industryFlows = {
   },
   'healthcare': {
     greeting: (company) => `Hello! I'm the AI Assistant for ${company}. I can help you schedule appointments, answer questions about our services, or connect you with the right department. How can I assist you today?`,
+    specificResponses: {
+      insurance: {
+        patterns: ['insurance', 'coverage', 'accept', 'in-network', 'out of network'],
+        response: "We accept most major insurance plans including:\n\n✅ Blue Cross Blue Shield\n✅ Aetna\n✅ United Healthcare\n✅ Cigna\n✅ Medicare/Medicaid\n\nI can verify your specific coverage if you'd like. What insurance do you have?",
+        delay: 1400,
+      },
+      symptoms: {
+        patterns: ['sick', 'pain', 'hurt', 'symptom', 'feeling', 'fever', 'cough', 'headache'],
+        response: "I'm sorry you're not feeling well. While I can't provide medical advice, I can help you get care quickly.\n\n🚨 **If this is an emergency**, please call 911 or go to the nearest ER.\n\n📅 For non-emergency concerns, I can schedule you with the next available provider. Would you like me to check availability today?",
+        delay: 1500,
+      },
+      prescriptions: {
+        patterns: ['prescription', 'refill', 'medication', 'medicine', 'pharmacy', 'rx'],
+        response: "For prescription refills, I can help! Please provide:\n\n• Your name and date of birth\n• The medication you need refilled\n• Your preferred pharmacy\n\nOr you can call our prescription line directly at (555) 123-4567 ext. 3. Would you like to proceed with a refill request?",
+        delay: 1400,
+      },
+    },
     flows: {
       services: {
         response: "We offer a comprehensive range of healthcare services:\n\n🏥 **Primary Care** - Annual checkups, preventive care\n🦷 **Dental Services** - Cleanings, procedures\n👁️ **Vision Care** - Eye exams, prescriptions\n💊 **Specialist Referrals** - Cardiology, dermatology, etc.\n\nWhich service are you interested in?",
@@ -92,6 +204,23 @@ const industryFlows = {
   },
   'construction': {
     greeting: (company) => `Hello! I'm the AI Assistant for ${company}. I can help you get project estimates, schedule consultations, or answer questions about our construction services. What can I help you with?`,
+    specificResponses: {
+      timeline: {
+        patterns: ['how long', 'timeline', 'duration', 'time frame', 'when done', 'finish'],
+        response: "Project timelines vary based on scope, but here are typical durations:\n\n⏱️ **Kitchen Remodel:** 4-8 weeks\n⏱️ **Bathroom Remodel:** 2-4 weeks\n⏱️ **Room Addition:** 8-16 weeks\n⏱️ **Custom Home:** 6-12 months\n\nWould you like to discuss your specific project timeline?",
+        delay: 1400,
+      },
+      permits: {
+        patterns: ['permit', 'license', 'approval', 'code', 'inspection', 'legal'],
+        response: "Great question! We handle all permitting and inspections as part of our service. This includes:\n\n📋 Building permits\n📋 Electrical permits\n📋 Plumbing permits\n📋 All required inspections\n\nOur team ensures your project is fully compliant. Any other questions about the process?",
+        delay: 1400,
+      },
+      materials: {
+        patterns: ['material', 'quality', 'brand', 'supplier', 'wood', 'concrete', 'steel'],
+        response: "We use only high-quality materials from trusted suppliers. Our standard includes:\n\n🔨 Premium-grade lumber\n🔨 Energy-efficient windows\n🔨 Name-brand fixtures\n🔨 Durable flooring options\n\nWe can also work with your preferred materials if you have specific requirements. What type of project are you planning?",
+        delay: 1400,
+      },
+    },
     flows: {
       services: {
         response: "We handle a wide range of construction projects:\n\n🏗️ **Commercial Construction** - Office buildings, retail spaces\n🏠 **Residential** - Custom homes, renovations\n🔧 **Remodeling** - Kitchens, bathrooms, additions\n🏢 **Industrial** - Warehouses, manufacturing facilities\n\nWhat type of project are you planning?",
@@ -118,6 +247,23 @@ const industryFlows = {
   },
   'insurance': {
     greeting: (company) => `Hi! I'm the AI Assistant for ${company}. I can help you get quotes, understand coverage options, or file a claim. How can I assist you today?`,
+    specificResponses: {
+      claim: {
+        patterns: ['claim', 'accident', 'damage', 'file', 'report', 'incident'],
+        response: "I'm sorry to hear you need to file a claim. I can help you get started right away.\n\n📋 **To file a claim, I'll need:**\n• Your policy number\n• Date of incident\n• Brief description of what happened\n\nOr for immediate assistance, call our 24/7 claims line: **(555) 123-CLAIM**\n\nWould you like to proceed here or prefer to call?",
+        delay: 1500,
+      },
+      discount: {
+        patterns: ['discount', 'save', 'cheaper', 'lower', 'bundle', 'deal'],
+        response: "Great question! We offer several ways to save:\n\n💰 **Multi-policy discount:** Up to 25% off\n💰 **Good driver discount:** Up to 20% off\n💰 **Home security discount:** Up to 15% off\n💰 **Loyalty discount:** Up to 10% off\n\nWould you like me to help identify which discounts you qualify for?",
+        delay: 1400,
+      },
+      deductible: {
+        patterns: ['deductible', 'coverage limit', 'policy details', 'what\'s covered', 'exclusion'],
+        response: "I can help explain your coverage options!\n\n**Deductible options:** $250, $500, $1000, $2500\n• Lower deductible = Higher premium but less out-of-pocket\n• Higher deductible = Lower premium but more out-of-pocket\n\nWould you like to speak with an agent to review the best option for your situation?",
+        delay: 1400,
+      },
+    },
     flows: {
       services: {
         response: "We offer comprehensive insurance coverage:\n\n🚗 **Auto Insurance** - Liability, collision, comprehensive\n🏠 **Home Insurance** - Property, liability, personal items\n💼 **Business Insurance** - General liability, professional\n❤️ **Life Insurance** - Term, whole, universal\n\nWhich type of coverage interests you?",
@@ -144,6 +290,23 @@ const industryFlows = {
   },
   'legal': {
     greeting: (company) => `Hello! I'm the AI Assistant for ${company}. I can help you schedule a consultation, learn about our practice areas, or get general information. How may I assist you?`,
+    specificResponses: {
+      urgency: {
+        patterns: ['deadline', 'court date', 'served', 'summons', 'subpoena', 'statute of limitations'],
+        response: "I understand this may be time-sensitive. Legal deadlines are critical.\n\n⚠️ **If you've been served with papers**, you typically have 20-30 days to respond.\n\nI recommend speaking with an attorney as soon as possible. I can:\n• Schedule an urgent consultation today\n• Have an attorney call you within 2 hours\n\nWhich would you prefer?",
+        delay: 1500,
+      },
+      confidential: {
+        patterns: ['confidential', 'private', 'secret', 'sensitive', 'discrete'],
+        response: "Absolutely. All communications with our firm are protected by **attorney-client privilege**. This means:\n\n🔒 Everything you share is confidential\n🔒 We cannot disclose information without your consent\n🔒 This protection begins from your first contact\n\nYou can speak freely about your situation. How can we help?",
+        delay: 1400,
+      },
+      experience: {
+        patterns: ['experience', 'success rate', 'won', 'track record', 'qualified', 'years'],
+        response: "Great question! Our attorneys bring extensive experience:\n\n⚖️ **Combined 50+ years** of legal practice\n⚖️ **500+ cases** successfully resolved\n⚖️ **Multi-million dollar** settlements obtained\n⚖️ **AV-rated** by Martindale-Hubbell\n\nWould you like to schedule a free consultation to discuss your case?",
+        delay: 1400,
+      },
+    },
     flows: {
       services: {
         response: "Our firm handles a variety of legal matters:\n\n⚖️ **Personal Injury** - Auto accidents, slip & fall\n👨‍👩‍👧 **Family Law** - Divorce, custody, adoption\n🏢 **Business Law** - Contracts, formation, disputes\n📋 **Estate Planning** - Wills, trusts, probate\n\nWhich area do you need assistance with?",
@@ -170,6 +333,23 @@ const industryFlows = {
   },
   'finance': {
     greeting: (company) => `Hello! I'm the AI Assistant for ${company}. I can help you explore investment options, schedule a meeting with an advisor, or answer questions about our services. How can I help?`,
+    specificResponses: {
+      investment: {
+        patterns: ['invest', 'stock', 'bond', 'mutual fund', 'etf', 'portfolio', 'market'],
+        response: "I can help you understand our investment options!\n\n📈 **Stocks & ETFs** - Individual securities and funds\n📊 **Mutual Funds** - Diversified portfolios\n💵 **Bonds** - Fixed income securities\n🏠 **REITs** - Real estate investments\n\nInvestment strategies should align with your goals and risk tolerance. Would you like to schedule a free consultation with an advisor?",
+        delay: 1500,
+      },
+      retirement: {
+        patterns: ['retire', '401k', 'ira', 'pension', 'social security', 'nest egg'],
+        response: "Planning for retirement is so important! We offer several options:\n\n👴 **401(k) Plans** - Employer-sponsored with tax benefits\n💰 **Traditional IRA** - Tax-deferred growth\n💎 **Roth IRA** - Tax-free withdrawals\n📋 **Pension Analysis** - Maximize your benefits\n\nThe right choice depends on your situation. Would you like to discuss your retirement goals with an advisor?",
+        delay: 1500,
+      },
+      account: {
+        patterns: ['account', 'balance', 'statement', 'transaction', 'login', 'password'],
+        response: "For account-related inquiries:\n\n🔐 **Online Access:** Visit our secure portal at www.company.com/login\n📱 **Mobile App:** Download from App Store or Google Play\n📞 **Phone Support:** (555) 123-4567\n\nFor security reasons, I can't access account details directly. Is there something else I can help with?",
+        delay: 1300,
+      },
+    },
     flows: {
       services: {
         response: "We offer comprehensive financial services:\n\n📈 **Wealth Management** - Portfolio management, planning\n🏦 **Business Banking** - Loans, lines of credit\n👴 **Retirement Planning** - 401k, IRA, pension\n🏠 **Mortgage Services** - Purchase, refinance\n\nWhich service interests you?",
@@ -360,13 +540,51 @@ export default function AIChat({ onBack }) {
     }
   }, [config]);
 
+  // Check for common response patterns
+  const checkCommonResponse = (input, companyName) => {
+    const lower = input.toLowerCase();
+
+    for (const [key, data] of Object.entries(commonResponses)) {
+      if (key === 'fallback') continue; // Skip fallback, it's the default
+      if (data.patterns && data.patterns.some(pattern => lower.includes(pattern))) {
+        return {
+          response: typeof data.response === 'function' ? data.response(companyName) : data.response,
+          delay: data.delay,
+          type: 'common',
+          key,
+        };
+      }
+    }
+    return null;
+  };
+
+  // Check for industry-specific response patterns
+  const checkIndustrySpecific = (input, industry) => {
+    const lower = input.toLowerCase();
+    const industryData = industryFlows[industry];
+
+    if (industryData.specificResponses) {
+      for (const [key, data] of Object.entries(industryData.specificResponses)) {
+        if (data.patterns && data.patterns.some(pattern => lower.includes(pattern))) {
+          return {
+            response: data.response,
+            delay: data.delay,
+            type: 'specific',
+            key,
+          };
+        }
+      }
+    }
+    return null;
+  };
+
   const detectFlow = (input) => {
     const lower = input.toLowerCase();
-    if (lower.includes('service') || lower.includes('offer') || lower.includes('what do you') || lower.includes('help')) return 'services';
-    if (lower.includes('price') || lower.includes('cost') || lower.includes('fee') || lower.includes('rate') || lower.includes('quote') || lower.includes('$')) return 'pricing';
-    if (lower.includes('schedule') || lower.includes('appointment') || lower.includes('book') || lower.includes('meet') || lower.includes('consult') || lower.includes('call')) return 'schedule';
-    if (lower.includes('tomorrow') || lower.includes('thursday') || lower.includes('wednesday') || lower.includes('friday') || lower.includes('pm') || lower.includes('am') || lower.includes('time')) return 'confirm';
-    return 'services';
+    if (lower.includes('service') || lower.includes('offer') || lower.includes('what do you') || lower.includes('help with')) return 'services';
+    if (lower.includes('price') || lower.includes('cost') || lower.includes('fee') || lower.includes('rate') || lower.includes('quote') || lower.includes('$') || lower.includes('how much')) return 'pricing';
+    if (lower.includes('schedule') || lower.includes('appointment') || lower.includes('book') || lower.includes('meet') || lower.includes('consult') || lower.includes('call me')) return 'schedule';
+    if (lower.includes('tomorrow') || lower.includes('thursday') || lower.includes('wednesday') || lower.includes('friday') || lower.includes('pm') || lower.includes('am') || lower.match(/\d+\s*(am|pm|o'clock)/)) return 'confirm';
+    return null; // Return null to trigger fallback
   };
 
   const handleSend = (text = inputValue, flowOverride = null) => {
@@ -375,38 +593,81 @@ export default function AIChat({ onBack }) {
     setMessages((prev) => [...prev, { text, isBot: false }]);
     setInputValue('');
 
-    const flow = flowOverride || detectFlow(text);
     const industryData = industryFlows[config.industry];
-    const response = industryData.flows[flow] || industryData.flows.services;
+
+    // Priority: 1) Flow override, 2) Common responses, 3) Industry-specific, 4) Main flows, 5) Fallback
+    let responseData = null;
+    let responseType = 'flow';
+
+    if (flowOverride) {
+      // Direct flow override from button clicks
+      responseData = industryData.flows[flowOverride];
+      responseType = flowOverride;
+    } else {
+      // Check common responses first (greetings, thanks, etc.)
+      const commonMatch = checkCommonResponse(text, config.companyName);
+      if (commonMatch) {
+        responseData = commonMatch;
+        responseType = commonMatch.key;
+      } else {
+        // Check industry-specific responses
+        const specificMatch = checkIndustrySpecific(text, config.industry);
+        if (specificMatch) {
+          responseData = specificMatch;
+          responseType = specificMatch.key;
+        } else {
+          // Try to detect standard flow
+          const flow = detectFlow(text);
+          if (flow) {
+            responseData = industryData.flows[flow];
+            responseType = flow;
+          } else {
+            // Use fallback
+            responseData = {
+              response: commonResponses.fallback.response(config.companyName),
+              delay: commonResponses.fallback.delay,
+            };
+            responseType = 'fallback';
+          }
+        }
+      }
+    }
 
     setIsTyping(true);
 
-    // Update prompts based on flow
+    // Update prompts based on response type
     setTimeout(() => {
-      if (flow === 'services') {
+      if (responseType === 'services') {
         setCurrentPrompts([
           industryData.prompts.find(p => p.flow === 'pricing') || industryData.prompts[1],
           industryData.prompts.find(p => p.flow === 'schedule') || industryData.prompts[2],
         ].filter(Boolean));
-      } else if (flow === 'pricing') {
+      } else if (responseType === 'pricing') {
         setCurrentPrompts([{ text: "Schedule a consultation", icon: Calendar, flow: 'schedule' }]);
-      } else if (flow === 'schedule') {
+      } else if (responseType === 'schedule') {
         setCurrentPrompts([
           { text: "Tomorrow at 10 AM works", icon: Clock, flow: 'confirm' },
           { text: "Thursday at 2 PM", icon: Clock, flow: 'confirm' },
         ]);
-      } else if (flow === 'confirm') {
+      } else if (responseType === 'confirm') {
         setCurrentPrompts([]);
+      } else if (['greeting', 'thanks', 'positive', 'negative', 'fallback', 'goodbye'].includes(responseType)) {
+        // Keep current prompts or show initial prompts
+        if (currentPrompts.length === 0) {
+          setCurrentPrompts(industryData.prompts);
+        }
       }
-    }, response.delay / 2);
+      // For other responses (common or specific), keep current prompts
+    }, responseData.delay / 2);
 
     setTimeout(() => {
       setIsTyping(false);
-      setMessages((prev) => [...prev, { text: response.response, isBot: true }]);
-      if (flow === 'confirm') {
+      const responseText = responseData.response || responseData;
+      setMessages((prev) => [...prev, { text: responseText, isBot: true }]);
+      if (responseType === 'confirm') {
         setTimeout(() => setShowCTA(true), 1500);
       }
-    }, response.delay);
+    }, responseData.delay);
   };
 
   const handleKeyPress = (e) => {

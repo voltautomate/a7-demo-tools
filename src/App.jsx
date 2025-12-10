@@ -13,6 +13,9 @@ import PipelineCalculator from './components/PipelineCalculator';
 import AIChat from './components/AIChat';
 import ContentEngine from './components/ContentEngine';
 
+// UPDATE THIS WITH YOUR ACTUAL BOOKING LINK
+const BOOKING_URL = 'https://calendly.com/a7agents';
+
 const demos = [
   {
     id: 'lead-activation',
@@ -64,9 +67,14 @@ function Navbar() {
           <a href="#demos" className="text-sm text-gray-400 hover:text-white transition-colors">Demos</a>
           <a href="#how-it-works" className="text-sm text-gray-400 hover:text-white transition-colors">How It Works</a>
         </div>
-        <button className="bg-[#C45308] text-white px-5 py-2 text-sm font-semibold hover:bg-white hover:text-[#C45308] border border-[#C45308] transition-colors">
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#C45308] text-white px-5 py-2 text-sm font-semibold hover:bg-white hover:text-[#C45308] border border-[#C45308] transition-colors"
+        >
           Book a Call
-        </button>
+        </a>
       </div>
     </nav>
   );
@@ -268,9 +276,14 @@ function DemoSelector({ onSelect }) {
           <p className="text-gray-400 mb-8">
             Book a free consultation to see how A7 Agents can transform your lead generation.
           </p>
-          <button className="bg-[#C45308] text-white px-10 py-4 font-semibold text-lg hover:bg-white hover:text-[#C45308] border border-[#C45308] transition-colors">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-[#C45308] text-white px-10 py-4 font-semibold text-lg hover:bg-white hover:text-[#C45308] border border-[#C45308] transition-colors"
+          >
             Book Your Free Call
-          </button>
+          </a>
         </div>
       </section>
 
