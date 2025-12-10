@@ -498,17 +498,18 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
         <Card variant="glass" padding="none" className="overflow-hidden group cursor-pointer" onClick={handlePlay}>
           {/* Video thumbnail - always use gradient design */}
           <div className={`aspect-[9/16] relative overflow-hidden`}>
+            {/* Background - simulated video area (middle portion) */}
             <div className={`absolute inset-0 bg-gradient-to-br ${industryColor || 'from-a7-dark-700 to-a7-dark-600'}`}>
               <div className="absolute inset-0 opacity-20">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
               </div>
             </div>
 
-            {/* TOP BRANDED GRADIENT OVERLAY */}
-            <div className={`absolute top-0 left-0 right-0 h-16 bg-gradient-to-b ${gradientTop || 'from-black/70 via-black/30 to-transparent'} z-10`} />
+            {/* TOP BRANDED GRADIENT OVERLAY - prominent orange bar */}
+            <div className={`absolute top-0 left-0 right-0 h-24 bg-gradient-to-b ${gradientTop || 'from-amber-600 via-orange-500/80 to-transparent'} z-10`} />
 
-            {/* Large emoji icon */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 text-6xl opacity-50 group-hover:opacity-70 transition-opacity drop-shadow-lg z-[5]">
+            {/* Large emoji icon - centered in middle */}
+            <div className="absolute top-1/3 left-1/2 -translate-x-1/2 text-5xl opacity-60 group-hover:opacity-80 transition-opacity drop-shadow-lg z-[5]">
               {clip.thumbnail}
             </div>
 
@@ -516,9 +517,9 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 z-20">
               <motion.div
                 whileHover={{ scale: 1.1 }}
-                className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center cursor-pointer shadow-xl"
+                className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center cursor-pointer shadow-xl"
               >
-                <Play size={24} className="text-gray-900 ml-1" fill="currentColor" />
+                <Play size={20} className="text-gray-900 ml-1" fill="currentColor" />
               </motion.div>
             </div>
 
@@ -534,15 +535,14 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
               </div>
             )}
 
-            {/* BOTTOM BRANDED GRADIENT OVERLAY with BAKED-IN SUBTITLE */}
-            <div className={`absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} z-10`}>
+            {/* BOTTOM BRANDED GRADIENT OVERLAY with BAKED-IN SUBTITLE - prominent orange bar */}
+            <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${gradientBottom || 'from-amber-600 via-orange-500/80 to-transparent'} z-10`}>
               {/* Subtitle text - baked into the clip like in real reels */}
-              <div className="absolute bottom-8 left-2 right-2 text-center">
+              <div className="absolute bottom-4 left-2 right-2 text-center">
                 <p
-                  className="text-white font-black text-sm leading-tight uppercase tracking-wide"
+                  className="text-white font-black text-xs leading-tight uppercase tracking-wide"
                   style={{
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.5)',
-                    WebkitTextStroke: '0.5px rgba(0,0,0,0.3)'
+                    textShadow: '1px 1px 3px rgba(0,0,0,0.9), -1px -1px 2px rgba(0,0,0,0.6)',
                   }}
                 >
                   {timestamp?.subtitle || clip.textOverlay}
@@ -551,7 +551,7 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
             </div>
 
             {/* Duration badge */}
-            <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/70 text-xs text-white font-medium backdrop-blur-sm z-20">
+            <div className="absolute bottom-2 right-2 px-2 py-0.5 rounded bg-black/60 text-[10px] text-white font-medium z-20">
               {timestamp ? timestamp.duration : clip.duration}
             </div>
           </div>
@@ -604,17 +604,16 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
                             className="w-full h-full"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           />
-                          {/* TOP BRANDED GRADIENT OVERLAY */}
-                          <div className={`absolute top-0 left-0 right-0 h-20 bg-gradient-to-b ${gradientTop || 'from-black/80 via-black/40 to-transparent'} pointer-events-none z-10`} />
+                          {/* TOP BRANDED GRADIENT OVERLAY - prominent orange */}
+                          <div className={`absolute top-0 left-0 right-0 h-28 bg-gradient-to-b ${gradientTop || 'from-amber-600 via-orange-500/80 to-transparent'} pointer-events-none z-10`} />
 
-                          {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE */}
-                          <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} pointer-events-none z-10`}>
-                            <div className="absolute bottom-6 left-3 right-3 text-center">
+                          {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE - prominent orange */}
+                          <div className={`absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t ${gradientBottom || 'from-amber-600 via-orange-500/80 to-transparent'} pointer-events-none z-10`}>
+                            <div className="absolute bottom-8 left-4 right-4 text-center">
                               <motion.p
-                                className="text-white font-black text-base leading-tight uppercase tracking-wide"
+                                className="text-white font-black text-lg leading-tight uppercase tracking-wide"
                                 style={{
                                   textShadow: '2px 2px 6px rgba(0,0,0,0.95), -1px -1px 3px rgba(0,0,0,0.6)',
-                                  WebkitTextStroke: '0.5px rgba(0,0,0,0.4)'
                                 }}
                                 animate={{ opacity: [0.9, 1, 0.9] }}
                                 transition={{ duration: 2, repeat: Infinity }}
@@ -693,11 +692,11 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
                 <>
                   <div className="bg-gray-900 rounded-[2.5rem] p-2 shadow-2xl">
                     <div className={`aspect-[9/16] bg-gradient-to-br ${industryColor || 'from-a7-dark-700 to-a7-dark-600'} rounded-[2rem] relative overflow-hidden`}>
-                      {/* TOP BRANDED GRADIENT OVERLAY */}
-                      <div className={`absolute top-0 left-0 right-0 h-20 bg-gradient-to-b ${gradientTop || 'from-black/80 via-black/40 to-transparent'} z-10`} />
+                      {/* TOP BRANDED GRADIENT OVERLAY - prominent orange */}
+                      <div className={`absolute top-0 left-0 right-0 h-28 bg-gradient-to-b ${gradientTop || 'from-amber-600 via-orange-500/80 to-transparent'} z-10`} />
 
                       <motion.div
-                        className="absolute top-1/4 left-1/2 -translate-x-1/2 text-8xl z-[5]"
+                        className="absolute top-1/3 left-1/2 -translate-x-1/2 text-7xl z-[5]"
                         animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
                         transition={{ duration: 2, repeat: Infinity }}
                       >
@@ -721,14 +720,13 @@ function ClipCard({ clip, index, industryColor, youtubeId, timestamp, gradientTo
                         </div>
                       </div>
 
-                      {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE */}
-                      <div className={`absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t ${gradientBottom || 'from-black/90 via-black/50 to-transparent'} z-10`}>
-                        <div className="absolute bottom-6 left-3 right-3 text-center">
+                      {/* BOTTOM BRANDED GRADIENT OVERLAY with SUBTITLE - prominent orange */}
+                      <div className={`absolute bottom-0 left-0 right-0 h-36 bg-gradient-to-t ${gradientBottom || 'from-amber-600 via-orange-500/80 to-transparent'} z-10`}>
+                        <div className="absolute bottom-8 left-4 right-4 text-center">
                           <motion.p
                             className="text-white font-black text-lg leading-tight uppercase tracking-wide"
                             style={{
                               textShadow: '2px 2px 6px rgba(0,0,0,0.95), -1px -1px 3px rgba(0,0,0,0.6)',
-                              WebkitTextStroke: '0.5px rgba(0,0,0,0.4)'
                             }}
                             animate={{ opacity: [0.8, 1, 0.8] }}
                             transition={{ duration: 1.5, repeat: Infinity }}

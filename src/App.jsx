@@ -14,7 +14,7 @@ import AIChat from './components/AIChat';
 import ContentEngine from './components/ContentEngine';
 
 // UPDATE THIS WITH YOUR ACTUAL BOOKING LINK
-const BOOKING_URL = 'https://calendly.com/a7agents';
+const BOOKING_URL = 'https://calendly.com/team-a7agents/30min';
 
 const demos = [
   {
