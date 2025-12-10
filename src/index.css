@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-black text-white antialiased;
+    font-family: 'Montserrat', 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  /* Typography matching Wix site */
+  h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 64px;
+    line-height: 1.4;
+  }
+
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 40px;
+    line-height: 1.4;
+  }
+
+  h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    line-height: 1.4;
+  }
+
+  h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+  }
+
+  h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Glass card - updated for darker theme */
+  .glass-card {
+    @apply bg-[#141414]/90 backdrop-blur-xl border border-[#2a2a2a]/50 rounded-2xl;
+  }
+
+  /* Gradient text - now orange */
+  .gradient-text {
+    @apply bg-gradient-to-r from-[#C45308] to-[#E15F09] bg-clip-text text-transparent;
+  }
+
+  /* Orange accent text */
+  .accent-text {
+    @apply text-[#C45308];
+  }
+
+  /* Monospace heading style (for special headers) */
+  .heading-mono {
+    font-family: 'JetBrains Mono', monospace;
+    @apply tracking-extra-wide uppercase;
+  }
+
+  /* Tab button styles */
+  .tab-button {
+    @apply px-4 py-2 text-sm font-medium tracking-wide uppercase transition-all duration-200;
+    @apply text-gray-400 hover:text-white border-b-2 border-transparent;
+  }
+
+  .tab-button.active {
+    @apply text-white bg-[#141414] border-[#C45308];
+  }
+
+  /* Primary button - matches Wix exactly */
+  /* Normal: Orange fill, white text */
+  /* Hover: White fill, orange text */
+  .btn-primary {
+    @apply px-6 py-3 font-semibold transition-all duration-200;
+    background-color: #C45308;
+    color: #FFFFFF;
+    border: 1px solid #C45308;
+  }
+
+  .btn-primary:hover {
+    background-color: #FFFFFF;
+    color: #C45308;
+    border-color: #C45308;
+  }
+
+  .btn-primary:disabled {
+    background-color: #808080;
+    border-color: #808080;
+    color: #FFFFFF;
+  }
+
+  /* Secondary button - matches Wix exactly */
+  /* Normal: White fill, orange text, orange border */
+  /* Hover: Orange fill, white text */
+  .btn-secondary {
+    @apply px-6 py-3 font-semibold transition-all duration-200;
+    background-color: #FFFFFF;
+    color: #C45308;
+    border: 1px solid #C45308;
+  }
+
+  .btn-secondary:hover {
+    background-color: #C45308;
+    color: #FFFFFF;
+  }
+
+  .btn-secondary:disabled {
+    background-color: #FFFFFF;
+    color: #808080;
+    border-color: #808080;
+  }
+
+  /* Black button style */
+  .btn-black {
+    @apply bg-black text-white px-6 py-3 font-medium tracking-wide;
+    @apply border border-white/20 hover:border-[#C45308] transition-all;
+  }
+
+  /* Numbered section style */
+  .section-number {
+    font-family: 'Montserrat', sans-serif;
+    @apply text-4xl md:text-5xl font-light text-gray-600;
+  }
+
+  /* Divider line */
+  .divider {
+    @apply h-px bg-gradient-to-r from-transparent via-[#2a2a2a] to-transparent;
+  }
+
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(196, 83, 8, 0.3);
+  }
+
+  .scan-line {
+    @apply absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#C45308] to-transparent;
+  }
+}
+
+/* Custom utility styles */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(196, 83, 8, 0.5);
+  }
+
+  /* Clean background */
+  .bg-grid {
+    background: transparent;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C45308;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(196, 83, 8, 0.3);
+  color: white;
+}
