@@ -463,44 +463,27 @@ function Message({ message, isBot }) {
   );
 }
 
-function CTAModal({ isOpen, onClose }) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+const BOOKING_URL = 'https://calendly.com/team-a7agents/30min';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setTimeout(() => { onClose(); setSubmitted(false); setEmail(''); }, 2000);
-    }
+function CTAModal({ isOpen, onClose }) {
+  const handleBookCall = () => {
+    window.open(BOOKING_URL, '_blank');
+    onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={submitted ? null : "Get Your AI Receptionist"} size="md">
-      {submitted ? (
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center py-8">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.1 }} className="w-16 h-16 mx-auto mb-4 rounded-full bg-a7-success/20 flex items-center justify-center">
-            <Sparkles size={32} className="text-a7-success" />
-          </motion.div>
-          <h3 className="text-xl font-bold text-white mb-2">Request Received!</h3>
-          <p className="text-gray-400">We'll set up your demo within 24 hours.</p>
-        </motion.div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <p className="text-gray-400 mb-6">Deploy an AI receptionist that works 24/7, qualifies leads instantly, and books appointments automatically.</p>
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            {[{ icon: Clock, text: '24/7 Availability' }, { icon: MessageSquare, text: 'Instant Responses' }, { icon: Calendar, text: 'Auto Scheduling' }, { icon: Bot, text: 'Lead Qualification' }].map((feature, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
-                <feature.icon size={14} className="text-a7-primary" />
-                <span>{feature.text}</span>
-              </div>
-            ))}
+    <Modal isOpen={isOpen} onClose={onClose} title="Get Your AI Receptionist" size="md">
+      <p className="text-gray-400 mb-6">Deploy an AI receptionist that works 24/7, qualifies leads instantly, and books appointments automatically.</p>
+      <div className="grid grid-cols-2 gap-3 mb-6">
+        {[{ icon: Clock, text: '24/7 Availability' }, { icon: MessageSquare, text: 'Instant Responses' }, { icon: Calendar, text: 'Auto Scheduling' }, { icon: Bot, text: 'Lead Qualification' }].map((feature, i) => (
+          <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+            <feature.icon size={14} className="text-a7-primary" />
+            <span>{feature.text}</span>
           </div>
-          <Input label="Work Email" type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} icon={<Mail size={18} />} className="mb-6" />
-          <Button type="submit" size="lg" className="w-full" variant="primary" icon={<Bot size={18} />}>Get My AI Receptionist</Button>
-          <p className="text-center text-xs text-gray-500 mt-4">Free setup. Cancel anytime.</p>
-        </form>
-      )}
+        ))}
+      </div>
+      <Button onClick={handleBookCall} size="lg" className="w-full" variant="primary" icon={<Bot size={18} />}>Book Your Demo</Button>
+      <p className="text-center text-xs text-gray-500 mt-4">Free setup. Cancel anytime.</p>
     </Modal>
   );
 }

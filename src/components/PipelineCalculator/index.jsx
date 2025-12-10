@@ -223,40 +223,23 @@ function AnimatedBar({ label, value, maxValue, color, delay = 0 }) {
   );
 }
 
-function CTAModal({ isOpen, onClose, projectedRevenue }) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+const BOOKING_URL = 'https://calendly.com/team-a7agents/30min';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setTimeout(() => { onClose(); setSubmitted(false); setEmail(''); }, 2000);
-    }
+function CTAModal({ isOpen, onClose, projectedRevenue }) {
+  const handleBookCall = () => {
+    window.open(BOOKING_URL, '_blank');
+    onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={submitted ? null : "Unlock Your Pipeline's Potential"} size="md">
-      {submitted ? (
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center py-8">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.1 }} className="w-16 h-16 mx-auto mb-4 rounded-full bg-a7-success/20 flex items-center justify-center">
-            <Sparkles size={32} className="text-a7-success" />
-          </motion.div>
-          <h3 className="text-xl font-bold text-white mb-2">You're all set!</h3>
-          <p className="text-gray-400">We'll reach out within 24 hours.</p>
-        </motion.div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <div className="text-center mb-6">
-            <p className="text-3xl font-bold text-a7-primary mb-2">{projectedRevenue}</p>
-            <p className="text-gray-400">in potential recovered revenue</p>
-          </div>
-          <p className="text-gray-400 mb-6 text-center">See how A7 Agents can reactivate your dormant leads and turn them into closed deals.</p>
-          <Input label="Work Email" type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} icon={<Mail size={18} />} className="mb-6" />
-          <Button type="submit" size="lg" className="w-full" icon={<Calendar size={18} />}>Book Strategy Call</Button>
-          <p className="text-center text-xs text-gray-500 mt-4">Free 15-min consultation. No commitment required.</p>
-        </form>
-      )}
+    <Modal isOpen={isOpen} onClose={onClose} title="Unlock Your Pipeline's Potential" size="md">
+      <div className="text-center mb-6">
+        <p className="text-3xl font-bold text-a7-primary mb-2">{projectedRevenue}</p>
+        <p className="text-gray-400">in potential recovered revenue</p>
+      </div>
+      <p className="text-gray-400 mb-6 text-center">See how A7 Agents can reactivate your dormant leads and turn them into closed deals.</p>
+      <Button onClick={handleBookCall} size="lg" className="w-full" icon={<Calendar size={18} />}>Book Strategy Call</Button>
+      <p className="text-center text-xs text-gray-500 mt-4">Free 15-min consultation. No commitment required.</p>
     </Modal>
   );
 }

@@ -878,82 +878,44 @@ function ImageCardPreview({ card, index }) {
   );
 }
 
-function CTAModal({ isOpen, onClose }) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+const BOOKING_URL = 'https://calendly.com/team-a7agents/30min';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setTimeout(() => {
-        onClose();
-        setSubmitted(false);
-        setEmail('');
-      }, 2000);
-    }
+function CTAModal({ isOpen, onClose }) {
+  const handleBookCall = () => {
+    window.open(BOOKING_URL, '_blank');
+    onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={submitted ? null : "Automate Your Content"} size="md">
-      {submitted ? (
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="text-center py-8"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', delay: 0.1 }}
-            className="w-16 h-16 mx-auto mb-4 rounded-full bg-a7-success/20 flex items-center justify-center"
-          >
-            <Sparkles size={32} className="text-a7-success" />
-          </motion.div>
-          <h3 className="text-xl font-bold text-white mb-2">You're on the list!</h3>
-          <p className="text-gray-400">We'll reach out to set up your content engine.</p>
-        </motion.div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <p className="text-gray-400 mb-6">
-            Turn one piece of content into dozens of social assets automatically. Save hours every week.
-          </p>
+    <Modal isOpen={isOpen} onClose={onClose} title="Automate Your Content" size="md">
+      <p className="text-gray-400 mb-6">
+        Turn one piece of content into dozens of social assets automatically. Save hours every week.
+      </p>
 
-          <div className="grid grid-cols-3 gap-4 mb-6">
-            <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
-              <Video size={20} className="text-a7-warning mx-auto mb-1" />
-              <p className="text-2xl font-bold text-white">3</p>
-              <p className="text-xs text-gray-500">Short Clips</p>
-            </div>
-            <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
-              <FileText size={20} className="text-a7-warning mx-auto mb-1" />
-              <p className="text-2xl font-bold text-white">6</p>
-              <p className="text-xs text-gray-500">Captions</p>
-            </div>
-            <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
-              <Image size={20} className="text-a7-warning mx-auto mb-1" />
-              <p className="text-2xl font-bold text-white">4</p>
-              <p className="text-xs text-gray-500">Image Cards</p>
-            </div>
-          </div>
+      <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
+          <Video size={20} className="text-a7-warning mx-auto mb-1" />
+          <p className="text-2xl font-bold text-white">3</p>
+          <p className="text-xs text-gray-500">Short Clips</p>
+        </div>
+        <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
+          <FileText size={20} className="text-a7-warning mx-auto mb-1" />
+          <p className="text-2xl font-bold text-white">6</p>
+          <p className="text-xs text-gray-500">Captions</p>
+        </div>
+        <div className="text-center p-3 rounded-xl bg-a7-dark-700/50">
+          <Image size={20} className="text-a7-warning mx-auto mb-1" />
+          <p className="text-2xl font-bold text-white">4</p>
+          <p className="text-xs text-gray-500">Image Cards</p>
+        </div>
+      </div>
 
-          <Input
-            label="Work Email"
-            type="email"
-            placeholder="you@company.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            icon={<Mail size={18} />}
-            className="mb-6"
-          />
-          <Button type="submit" size="lg" className="w-full" variant="primary" icon={<Calendar size={18} />}>
-            Get Early Access
-          </Button>
-          <p className="text-center text-xs text-gray-500 mt-4">
-            Limited beta spots available.
-          </p>
-        </form>
-      )}
+      <Button onClick={handleBookCall} size="lg" className="w-full" variant="primary" icon={<Calendar size={18} />}>
+        Book Your Demo
+      </Button>
+      <p className="text-center text-xs text-gray-500 mt-4">
+        Free consultation. No commitment required.
+      </p>
     </Modal>
   );
 }

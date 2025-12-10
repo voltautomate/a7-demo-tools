@@ -344,36 +344,32 @@ function ResultsSummary({ leads, marketArea, industry }) {
   );
 }
 
-function CTAModal({ isOpen, onClose }) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+const BOOKING_URL = 'https://calendly.com/team-a7agents/30min';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setTimeout(() => { onClose(); setSubmitted(false); setEmail(''); }, 2000);
-    }
+function CTAModal({ isOpen, onClose }) {
+  const handleBookCall = () => {
+    window.open(BOOKING_URL, '_blank');
+    onClose();
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title={submitted ? null : "Get Started with A7 Agents"} size="md">
-      {submitted ? (
-        <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-center py-8">
-          <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.1 }} className="w-16 h-16 mx-auto mb-4 rounded-full bg-a7-success/20 flex items-center justify-center">
-            <CheckCircle size={32} className="text-a7-success" />
-          </motion.div>
-          <h3 className="text-xl font-bold text-white mb-2">You're all set!</h3>
-          <p className="text-gray-400">We'll be in touch within 24 hours.</p>
-        </motion.div>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <p className="text-gray-400 mb-6">Ready to discover real leads in your market? Enter your email to schedule a personalized demo.</p>
-          <Input label="Work Email" type="email" placeholder="you@company.com" value={email} onChange={(e) => setEmail(e.target.value)} icon={<Mail size={18} />} className="mb-6" />
-          <Button type="submit" size="lg" className="w-full" icon={<Calendar size={18} />}>Book Your Demo</Button>
-          <p className="text-center text-xs text-gray-500 mt-4">No commitment required. See real results in 15 minutes.</p>
-        </form>
-      )}
+    <Modal isOpen={isOpen} onClose={onClose} title="Get Started with A7 Agents" size="md">
+      <p className="text-gray-400 mb-6">Ready to discover real leads in your market? Book a call to see a personalized demo.</p>
+      <div className="grid grid-cols-2 gap-3 mb-6">
+        {[
+          { icon: Zap, text: 'Real-time Discovery' },
+          { icon: Target, text: 'Auto Qualification' },
+          { icon: TrendingUp, text: 'Smart Scoring' },
+          { icon: Calendar, text: 'Auto Scheduling' },
+        ].map((feature, i) => (
+          <div key={i} className="flex items-center gap-2 text-sm text-gray-400">
+            <feature.icon size={14} className="text-a7-primary" />
+            <span>{feature.text}</span>
+          </div>
+        ))}
+      </div>
+      <Button onClick={handleBookCall} size="lg" className="w-full" icon={<Calendar size={18} />}>Book Your Demo</Button>
+      <p className="text-center text-xs text-gray-500 mt-4">No commitment required. See real results in 15 minutes.</p>
     </Modal>
   );
 }
